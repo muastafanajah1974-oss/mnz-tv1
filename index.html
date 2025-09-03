@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MNZ TV</title>
+
+  <!-- Plyr -->
+  <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
+  <script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
+
+  <!-- HLS.js -->
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      background-color: #0e1621;
+      color: white;
+    }
+    .app-bar { background-color: #000; padding: 15px; text-align: center; font-weight: bold; font-size: 20px; }
+    .telegram-card {
+      background: linear-gradient(135deg, #3f5efb, #7b2ff7);
+      border-radius: 15px; margin: 20px; padding: 20px;
+      display: flex; align-items: center; gap: 15px;
+    }
+    .telegram-card img { width: 40px; height: 40px; }
+    .telegram-card h3 { margin: 0; font-size: 18px; }
+    .telegram-card p { margin: 5px 0; font-size: 14px; }
+    .telegram-card button {
+      background-color: #6c4bc1; color: white; border: none;
+      padding: 10px 20px; border-radius: 10px; margin-top: 10px;
+      cursor: pointer; font-weight: bold;
+    }
+    .section-title { margin: 20px; font-size: 18px; font-weight: bold; }
+    .channel-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; padding: 0 20px 40px; }
+    .channel-card {
+      background-color: #1a2533; border-radius: 15px; padding: 15px;
+      text-align: center; position: relative;
+    }
+    .channel-card img { width: 100px; height: 100px; margin-bottom: 10px; object-fit: contain; }
+    .channel-card button {
+      margin-top: 10px; background-color: #3268f3; color: white;
+      border: none; padding: 8px 16px; border-radius: 8px; cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ✅ مانع الإعلانات -->
+  <script>
+  (function() {
+      window.open = function() { console.warn("🚫 نافذة منبثقة محظورة"); return null; };
+      document.addEventListener("click", function(e) {
+          if (e.target.tagName === "A" && e.target.target === "_blank") {
+              e.preventDefault();
+              console.warn("🚫 رابط منبثق محظور");
+          }
+      }, true);
+      const adKeywords = ["ad", "ads", "banner", "sponsor", "promo"];
+      const removeAds = () => {
+          document.querySelectorAll("iframe, img, div, span, section, ins").forEach(el => {
+              const src = el.src || el.href || el.className || el.id || "";
+              if (adKeywords.some(k => src.toLowerCase().includes(k))) {
+                  el.remove();
+                  console.log("🚫 إعلان محذوف:", src);
+              }
+          });
+      };
+      const observer = new MutationObserver(removeAds);
+      observer.observe(document.body, { childList: true, subtree: true });
+      removeAds();
+  })();
+  </script>
+
+  <div class="app-bar">MNZ TV</div>
+
+  <div class="telegram-card">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram" />
+    <div>
+      <h3>تليجرام</h3>
+      <p>انضم الآن لتصلك آخر التحديثات</p>
+      <a href="go:tlk">
+        <button>مشاهدة الآن ▶</button>
+      </a>
+    </div>
+  </div>
+
+  <div class="section-title">القنوات</div>
+  <div class="channel-grid">
+    <div class="channel-card">
+      <img src="https://j.top4top.io/p_353143fws0.png" alt="beIN 1" />
+      <h3>عيناك كالبحر الاسود الحلقة 1</h3>
+      <button onclick="openVideo('https://voe.sx/e/mqxrvrk1db7j')">مشاهدة ▶</button>
+    </div>
+  </div>
+
+  <script>
+  function openVideo(url) {
+      const proxyUrl = window.location.origin + "/api?url=" + encodeURIComponent(url);
+      window.location.href = proxyUrl;
+  }
+  </script>
+
+</body>
+</html>
